@@ -8,9 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class StockOpname extends Model
 {
     protected $fillable = [
+        'opname_period_id',
         'user_id',
         'petugas_name',
         'block_id',
+        'material_id',
         'pipe_category_id',
         'pipe_size_id',
         'pipe_type_id',
@@ -29,18 +31,45 @@ class StockOpname extends Model
         'total_pcs',
         'total_loose',
         'total_weight',
+        'stok_sistem',
+        'stok_fisik',
+        'selisih',
+        'status',
+        'reviewed_by',
+        'reviewed_at',
         'opname_date',
         'input_date',
     ];
+
+    protected $casts = [
+        'reviewed_at' => 'datetime',
+        'opname_date' => 'date',
+    ];
+
+    // Relationships
+    public function opnamePeriod(): BelongsTo
+    {
+        return $this->belongsTo(OpnamePeriod::class);
+    }
 
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
+    public function reviewer(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'reviewed_by');
+    }
+
     public function block(): BelongsTo
     {
         return $this->belongsTo(Block::class);
+    }
+
+    public function material(): BelongsTo
+    {
+        return $this->belongsTo(Material::class);
     }
 
     public function pipeCategory(): BelongsTo
@@ -61,5 +90,13 @@ class StockOpname extends Model
     public function pipeClass(): BelongsTo
     {
         return $this->belongsTo(PipeClass::class);
+    }
+
+    // Helpers
+    public function getSelisihBadgeAttribute(): string
+    {
+        if ($this->selisih == 0) return 'bg-green-100 text-green-700';
+        if (abs($this->selisih) <= ($this->stok_sistem * 0.05)) return 'bg-yellow-100 text-yellow-700';
+        return 'bg-red-100 text-red-700';
     }
 }

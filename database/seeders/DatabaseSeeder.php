@@ -142,7 +142,7 @@ class DatabaseSeeder extends Seeder
 
         $sizeModels = [];
         foreach ($sizes as $s) {
-            $sizeModels[$s['size_label']] = PipeSize::updateOrCreate(
+            $sizeModels[$s['size_label']] = PipeSize::firstOrCreate(
                 ['size_label' => $s['size_label']],
                 ['pcs_per_bundle' => $s['pcs_per_bundle']]
             );
@@ -156,7 +156,7 @@ class DatabaseSeeder extends Seeder
 
         $typeModels = [];
         foreach ($types as $t) {
-            $typeModels[$t['code']] = PipeType::updateOrCreate(['code' => $t['code']], $t);
+            $typeModels[$t['code']] = PipeType::firstOrCreate(['code' => $t['code']], $t);
         }
 
         // 5. Seed Pipe Classes
@@ -168,7 +168,7 @@ class DatabaseSeeder extends Seeder
             ['code' => 'MED',   'name' => 'MED'],
         ];
         foreach ($classes as $cl) {
-            PipeClass::updateOrCreate(['code' => $cl['code']], $cl);
+            PipeClass::firstOrCreate(['code' => $cl['code']], $cl);
         }
 
         // 6. Seed Pipe Weights (Grade A & B per bundle in KG)
@@ -193,7 +193,7 @@ class DatabaseSeeder extends Seeder
                 $sizeObj = $sizeModels[$sizeLabel];
                 foreach ($typeWeights as $typeCode => $wKg) {
                     if (isset($typeModels[$typeCode])) {
-                        PipeWeight::updateOrCreate(
+                        PipeWeight::firstOrCreate(
                             ['pipe_size_id' => $sizeObj->id, 'pipe_type_id' => $typeModels[$typeCode]->id],
                             ['weight_per_bundle' => $wKg]
                         );

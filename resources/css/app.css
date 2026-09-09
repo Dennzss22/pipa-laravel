@@ -4,6 +4,52 @@
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Spindo Brand Colors */
+    --color-spindo-50: #fef2f2;
+    --color-spindo-100: #fee2e2;
+    --color-spindo-200: #fecaca;
+    --color-spindo-300: #fca5a5;
+    --color-spindo-400: #f87171;
+    --color-spindo-500: #ef4444;
+    --color-spindo-600: #dc2626;
+    --color-spindo-700: #b91c1c;
+    --color-spindo-800: #991b1b;
+    --color-spindo-900: #7f1d1d;
+
+    /* Steel / Industrial palette */
+    --color-steel-50: #f8fafc;
+    --color-steel-100: #f1f5f9;
+    --color-steel-200: #e2e8f0;
+    --color-steel-300: #cbd5e1;
+    --color-steel-400: #94a3b8;
+    --color-steel-500: #64748b;
+    --color-steel-600: #475569;
+    --color-steel-700: #334155;
+    --color-steel-800: #1e293b;
+    --color-steel-900: #0f172a;
+    --color-steel-950: #020617;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--color-steel-300);
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--color-steel-400);
+}
+
+/* Smooth transitions */
+* {
+    scroll-behavior: smooth;
 }
