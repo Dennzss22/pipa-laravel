@@ -17,7 +17,6 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
     ];
 
     protected $hidden = [
@@ -37,26 +36,4 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-
-    // Role helpers
-    public function isAdmin(): bool
-    {
-        return $this->role === 'admin';
-    }
-
-    public function isSupervisor(): bool
-    {
-        return $this->role === 'supervisor';
-    }
-
-    public function isOperator(): bool
-    {
-        return $this->role === 'operator';
-    }
-
-    public function hasRole(string ...$roles): bool
-    {
-        return in_array($this->role, $roles);
-    }
 }
-
